@@ -1,0 +1,19 @@
+---
+- name: install ntp
+  yum: name={{item}} state=present
+  with_items:
+    - ntp
+    - ntpdate
+  tags: ntp
+
+- name: setup ntp
+  template: src=ntp.conf dest=/etc/ntp.conf
+  tags: ntp
+  notify: start ntp service
+
+- name: sync ntp
+  command: ntpdate -u {{ntpserver}}
+
+- name: setup dns
+  template: src=resolv.conf dest=/etc/resolv.conf
+  tags: dns

@@ -1,0 +1,9 @@
+---
+- name: configure ntp
+  hosts: testserver
+  user: ansadm
+  become: yes
+  become_method: sudo
+  tasks:
+  roles: 
+    - setup
